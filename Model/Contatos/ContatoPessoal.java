@@ -29,7 +29,10 @@ public class ContatoPessoal extends Contato {
                 ---------------------------------------------------------------------------------------------------
                 |   %s                   | %s                  | %s                 | %s
                 ---------------------------------------------------------------------------------------------------
-                """.formatted(ContatoPessoal.getNome(), ContatoPessoal.getTelefone(), ContatoPessoal.getEndereco(), ContatoPessoal.getInstagram());
+                """.formatted(ContatoPessoal.getNome(),
+                ContatoPessoal.getTelefone(),
+                ContatoPessoal.getEndereco(),
+                ContatoPessoal.getInstagram());
     }
 
     public LocalDate getAnviersario() {
@@ -64,7 +67,11 @@ public class ContatoPessoal extends Contato {
             ContatoPessoal contatoPessoal = new ContatoPessoal(nome, telefone, endereco, email, aniversario, instagram, contatosPessoais) {
                 @Override
                 public String toString() {
-                    return String.format("Nome: %s\nTelefone: %s\nEndereço: %s\nEmail: %s", getNome(), getTelefone(), getEndereco(), getEmail());
+                    return String.format("Nome: %s\nTelefone: %s\nEndereço: %s\nEmail: %s",
+                            ContatoPessoal.getNome(),
+                            ContatoPessoal.getTelefone(),
+                            ContatoPessoal.getEndereco(),
+                            ContatoPessoal.getEmail());
                 }
             };
             contatos.add(contatoPessoal);

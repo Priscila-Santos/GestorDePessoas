@@ -8,8 +8,8 @@ import java.util.List;
 import static Controller.GerenciarContatos.contatos;
 
 public class ContatoProfissional extends Contato {
-    private String empresa;
-    private String cargo;
+    private static String empresa;
+    private static String cargo;
     private String site;
     private static List<ContatoProfissional> contatosProfissionais;
 
@@ -27,7 +27,10 @@ public class ContatoProfissional extends Contato {
                 --------------------------------------------------------------------------------------
                 |   %s                   | %s                 | %s                 |  %s
                 --------------------------------------------------------------------------------------
-                """.formatted(getNome(), getTelefone(), getEmpresa(), getCargo());
+                """.formatted(ContatoProfissional.getNome(),
+                ContatoProfissional.getTelefone(),
+                ContatoProfissional.getEmpresa(),
+                ContatoProfissional.getCargo());
     }
 
     public void imprimirContato(){
@@ -47,7 +50,13 @@ public class ContatoProfissional extends Contato {
             ContatoProfissional contatoProfissional = new ContatoProfissional(nome, telefone, endereco, email, empresa, cargo, contatosProfissionais) {
                 @Override
                 public String toString() {
-                    return String.format("Nome: %s\nTelefone: %s\nEndereço: %s\nEmail: %s\nEmpresa: %s\nCargo %s", getNome(), getTelefone(), getEndereco(), getEmail(), getEmpresa(), getCargo());
+                    return String.format("Nome: %s\nTelefone: %s\nEndereço: %s\nEmail: %s\nEmpresa: %s\nCargo %s",
+                            ContatoProfissional.getNome(),
+                            ContatoProfissional.getTelefone(),
+                            ContatoProfissional.getEndereco(),
+                            ContatoProfissional.getEmail(),
+                            ContatoProfissional.getEmpresa(),
+                            ContatoProfissional.getCargo());
                 }
             };
             contatos.add(contatoProfissional);
@@ -126,7 +135,7 @@ public class ContatoProfissional extends Contato {
 
     public static String removerContatoProfissional() {
         String nome = ScannerUtil.ler("Digite o nome do contato que deseja remover: ");
-        Contato contato = encontrarContato(nome);
+        Contato contato = encontrarContatoProfissional(nome);
         if (contato != null) {
             String confirmacao = ScannerUtil.ler("Tem certeza que deseja remover esse contato da sua agenda? S/N ");
             if (confirmacao.equalsIgnoreCase("S")) {
@@ -141,7 +150,7 @@ public class ContatoProfissional extends Contato {
 
     }
 
-    private static ContatoPessoal encontrarContato(String nome) {
+    private static ContatoPessoal encontrarContatoProfissional(String nome) {
         for (ContatoProfissional contato : contatosProfissionais) {
             if (contato.getNome().equalsIgnoreCase(nome)) {
                 return (ContatoPessoal) contatosProfissionais;
@@ -163,7 +172,7 @@ public class ContatoProfissional extends Contato {
         }
     }*/
 
-    public String getEmpresa() {
+    public static String getEmpresa() {
         return empresa;
     }
 
@@ -174,7 +183,7 @@ public class ContatoProfissional extends Contato {
         this.empresa = empresa;
     }
 
-    public String getCargo() {
+    public static String getCargo() {
         return cargo;
     }
 

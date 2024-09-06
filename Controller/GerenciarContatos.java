@@ -20,14 +20,14 @@ public class GerenciarContatos {
         this.contatos = new ArrayList<>();
     }
 
-    private static Contato encontrarContato(String nome) {
+   /* private static Contato encontrarContato(String nome) {
         for (Contato contato : contatos) {
             if (contato.getNome().equalsIgnoreCase(nome)) {
                 return contato;
             }
         }
         return null;
-    }
+    }*/
 
     public String listarContatosPessoais() {
         if (contatosPessoais.isEmpty()) {

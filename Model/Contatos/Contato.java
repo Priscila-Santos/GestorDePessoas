@@ -8,7 +8,7 @@ public abstract class Contato{
     private static String nome;
     private static String telefone;
     private static String endereco;
-    private String email;
+    private static String email;
 
     public Contato(String nome, String telefone, String endereco, String email) {
         setNome(nome);
@@ -56,7 +56,7 @@ public abstract class Contato{
         this.endereco = endereco;
     }
 
-    public String getEmail() {
+    public static String getEmail() {
         return email;
     }
 
@@ -67,11 +67,11 @@ public abstract class Contato{
         this.email = email;
     }
 
-    public static String editarContato(List<Contato> contatos, ScannerUtil entrada) {
+    /*public static String editarContato(List<Contato> contatos, ScannerUtil entrada) {
         return null;
     }
 
-   /* public abstract String adicionarContato(List<Contato> contatos, ScannerUtil entrada);
+    public abstract String adicionarContato(List<Contato> contatos, ScannerUtil entrada);
 
     public abstract String editarContato(List<Contato> contatos, ScannerUtil entrada);
 
