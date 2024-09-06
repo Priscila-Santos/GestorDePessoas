@@ -3,7 +3,7 @@ package Model.Contatos;
 import java.time.LocalDate;
 
 public class ContatoPessoal extends Contato {
-    private LocalDate anviersario;
+    private LocalDate aniversario;
     private String instagram;
 
     public ContatoPessoal(String telefone, String endereco, String email){
@@ -11,11 +11,11 @@ public class ContatoPessoal extends Contato {
     }
 
     public LocalDate getAnviersario() {
-        return anviersario;
+        return aniversario;
     }
 
     public void setAnviersario(LocalDate anviersario) {
-        this.anviersario = anviersario;
+        this.aniversario = anviersario;
     }
 
     public String getInstagram() {
@@ -24,5 +24,10 @@ public class ContatoPessoal extends Contato {
 
     public void setInstagram(String instagram) {
         this.instagram = instagram;
+    }
+
+    @Override
+    public String getTipoContato() {
+        return "Pessoal";
     }
 }

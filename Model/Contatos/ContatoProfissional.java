@@ -17,6 +17,11 @@ public class ContatoProfissional extends Contato {
         this.empresa = empresa;
     }
 
+    @Override
+    public String getTipoContato() {
+        return "Profissional";
+    }
+
     public String getCargo() {
         return cargo;
     }
