@@ -4,17 +4,29 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class ScannerUtil {
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     private ScannerUtil(InputStream in) {
     }
 
     public static Scanner getScanner() {
-        return scanner;
+        return sc;
     }
 
     public static String ler(String questao) {
         System.out.println(questao);
-        return scanner.nextLine();
+        return sc.nextLine();
     }
+
+    public static int lerInt(String pergunta) {
+        System.out.println(pergunta);
+        while (!sc.hasNextInt()) {
+            System.out.println("Insira um número inteiro!");
+        }
+        return sc.nextInt();
+    }
+
+    //adicionar ler double
+
+    //ler data - no formato padrão BR
 }

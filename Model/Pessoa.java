@@ -11,15 +11,11 @@ import java.util.List;
 public class Pessoa {
     private String nome;
     private String documento;
-    private List<Projeto> projetos;
-    private List<Tarefa> tarefas;
-    private ContatoProfissional contatoProfissional;
-    private ContatoPessoal contatoPessoal;
+    private List<Projeto> projetos = new ArrayList<>();
+    private List<Tarefa> tarefas = new ArrayList<>();
 
     public Pessoa(String nome) {
         this.nome = nome;
-        this.projetos = new ArrayList<>();
-        this.tarefas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -39,5 +35,21 @@ public class Pessoa {
     }
 
 
+
+
+    // Gerenciar projetos
+    public List<Projeto> getProjetos() {
+        return projetos;
+    }
+    public void adicionarProjeto(Projeto projeto) {
+        projetos.add(projeto);
+    }
+    // Gerenciar tarefas
+    public List<Tarefa> getTarefas() {
+        return tarefas;
+    }
+    public void adicionarTarefas(Tarefa tarefa) {
+        tarefas.add(tarefa);
+    }
 
 }

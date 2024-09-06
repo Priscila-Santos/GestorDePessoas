@@ -9,6 +9,7 @@ import java.util.List;
 import static Controller.GerenciarContatos.contatos;
 
 public class ContatoPessoal extends Contato {
+
     private static LocalDate aniversario;
     private static String instagram;
     private static List<ContatoPessoal> contatosPessoais;
@@ -20,6 +21,10 @@ public class ContatoPessoal extends Contato {
         this.contatosPessoais = new ArrayList<>();
     }
 
+
+=======
+    private LocalDate aniversario;
+    private String instagram;
 
 
     @Override
@@ -39,8 +44,13 @@ public class ContatoPessoal extends Contato {
         return aniversario;
     }
 
+
     public void setAnviersario(LocalDate aniversario) {
         this.aniversario = aniversario;
+=======
+    public void setAnviersario(LocalDate anviersario) {
+        this.aniversario = anviersario;
+
     }
 
     public static String getInstagram() {
@@ -181,5 +191,10 @@ public class ContatoPessoal extends Contato {
             }
         }
         return null;
+
+    @Override
+    public String getTipoContato() {
+        return "Pessoal";
+
     }
 }
