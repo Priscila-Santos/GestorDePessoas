@@ -12,7 +12,7 @@ public class Tarefa extends Item {
     private Prioridade prioridade;
     private Projeto projeto;
 
-    public Tarefa(String nome, Prioridade prioridade){
+    public Tarefa(String nome){
         super(nome);
         this.prioridade = prioridade;
     }
