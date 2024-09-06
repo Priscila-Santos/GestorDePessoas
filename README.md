@@ -28,10 +28,10 @@ Este projeto é uma evolução da agenda de contatos desenvolvida no módulo ant
 ## Colaboração no Git
 Para garantir que todos os membros da equipe pudessem colaborar de forma eficiente, seguimos os seguintes passos no Git:
 1.	Criação do Repositório: Um repositório foi criado no GitHub para o projeto.
-2.	Criação de uma Branch: Uma branch chamada release foi criada para que a equipe colocasse o código em uma “branch de trabalho” antes de passar o projeto completo para a branch main
+2.	Criação de uma Branch: Uma branch chamada 'release' foi criada para que a equipe colocasse o código em uma “branch de trabalho” antes de passar o projeto completo para a branch main
 3.	Clonagem do Repositório: Cada membro da equipe clonou o repositório para suas máquinas locais.
 fork (feito no github)
-git clone https://github.com/usuario/Agenda-Contatos.git   
+git clone URL_DO_REPOSITORIO 
 git checkout release
 git add .
 git commit -m "Descrição do commit"
