@@ -1,90 +1,123 @@
 package Controller;
 
 import Model.Pessoa;
-import Util.*;
+import Util.ScannerUtil;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciarPessoas {
-    private List<Pessoa> pessoas;
+    private List<Pessoa> pessoas = new ArrayList<>();
 
-    public GerenciarPessoas() {
-        pessoas = new ArrayList<>();
-    }
-
-    private Pessoa encontrarPessoa(String nome) {
-        for (Pessoa pessoa : pessoas) {
-            if (pessoa.getNome().equalsIgnoreCase(nome)) {
-                return pessoa;
-            }
-        }
-        return null;
-    }
-
-    public void adicionarPessoa(){
+    // Adiciona uma nova pessoa
+    public void adicionarPessoa() {
         String nome = ScannerUtil.ler("Digite o nome da pessoa: ");
-        String documento = ScannerUtil.ler("Digite um documento da pessoa: ");
+        String documento = ScannerUtil.ler("Digite o documento da pessoa: ");
         Pessoa pessoa = new Pessoa(nome, documento);
-        System.out.println("Digite as informações do contato pessoal: \n");
-        pessoa.adicionarContatoPessoal();
-        System.out.println(pessoa);
         pessoas.add(pessoa);
+        System.out.println("Pessoa adicionada com sucesso!");
     }
 
+    // Lista todas as pessoas cadastradas e imprime a tabela
+    public void listarPessoas() {
+        if (pessoas.isEmpty()) {
+            System.out.println("Nenhuma pessoa cadastrada.");
+            return;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        String cabecalho = String.format("| %-5s | %-20s | %-15s |\n", "ID", "Nome", "Documento");
+        String linha = String.format("+%-7s+%-22s+%-17s+\n", "-----", "--------------------", "---------------");
+
+        builder.append(linha);
+        builder.append(cabecalho);
+        builder.append(linha);
+
+        for (int i = 0; i < pessoas.size(); i++) {
+            Pessoa pessoa = pessoas.get(i);
+            builder.append(String.format("| %-5d | %-20s | %-15s |\n", i + 1, pessoa.getNome(), pessoa.getDocumento()));
+        }
+
+        builder.append(linha);
+
+        System.out.println(builder.toString());  // Imprime a tabela de pessoas
+    }
+
+    // Retorna o número de pessoas cadastradas
+    public int getQuantidadePessoas() {
+        return pessoas.size();
+    }
+
+    // Detalha uma pessoa específica
     public void detalharPessoa() {
-        String nome = ScannerUtil.ler("Digite o nome da pessoa: ");
-        Pessoa pessoa = encontrarPessoa(nome);
-        if (pessoa != null) {
+        listarPessoas();  // Exibe as pessoas para o usuário escolher
+        int index = Integer.parseInt(ScannerUtil.ler("Digite o ID que deseja detalhar: ")) - 1;
+
+        if (index >= 0 && index < pessoas.size()) {
+            Pessoa pessoa = pessoas.get(index);
             System.out.println("Detalhes da pessoa:");
+            System.out.println("Nome: " + pessoa.getNome());
             System.out.println("Documento: " + pessoa.getDocumento());
-            System.out.println("Projetos: " + pessoa.getProjetos());
-            System.out.println("Tarefas: " + pessoa.getTarefas());
+            System.out.println("Projetos" + pessoa.getProjetos());
+            System.out.println("Tarefas" + pessoa.getTarefasIndependentes());
+            // Adicione mais detalhes como projetos e tarefas
+
         } else {
-            System.out.println("Pessoa não encontrada.");
+            System.out.println("Número inválido.");
         }
     }
 
-    public void editarPessoa() {
-        String nome = ScannerUtil.ler("Digite o nome da pessoa que deseja editar: ");
-        Pessoa pessoa = encontrarPessoa(nome);
-        if (pessoa != null) {
-            String novoNome = ScannerUtil.ler("Digite o novo nome: ");
-            pessoa.setNome(novoNome);
-            System.out.println("Pessoa editada com sucesso!");
+    // Retorna a pessoa pelo índice com validação
+    public Pessoa getPessoa(int index) {
+        if (index >= 0 && index < pessoas.size()) {
+            return pessoas.get(index);
         } else {
-            System.out.println("Pessoa não encontrada.");
+            System.out.println("Índice inválido.");
+            return null;
         }
+    }
+
+    // Retorna a lista de pessoas
+    public List<Pessoa> getPessoas() {
+        return pessoas;
     }
 
     public void removerPessoa() {
-        String nome = ScannerUtil.ler("Digite o nome da pessoa que deseja remover: ");
-        Pessoa pessoa = encontrarPessoa(nome);
-        if (pessoa != null) {
-            String confirmacao = ScannerUtil.ler("Tem certeza que deseja remover essa pessoa da sua agenda? S/N ");
-            if (confirmacao.equalsIgnoreCase("S")) {
-                pessoas.remove(pessoa);
-                System.out.println("Pessoa removida com sucesso!");
-            } else {
-                System.out.println("Operação cancelada.");
-            }
+        listarPessoas(); // Exibe a lista de pessoas para o usuário escolher
+        int id = Integer.parseInt(ScannerUtil.ler("Digite o ID que deseja remover: ")) - 1;
+
+        if (id >= 0 && id < pessoas.size()) {
+            Pessoa pessoaRemovida = pessoas.remove(id);  // Remove a pessoa pelo índice
+            System.out.println("Pessoa " + pessoaRemovida.getNome() + " removida com sucesso.");
         } else {
-            System.out.println("Pessoa não encontrada.");
+            System.out.println("ID inválido. Nenhuma pessoa foi removida.");
         }
     }
 
 
-    public String listarPessoas() {
-        if (pessoas.isEmpty()) {
-            return "Nenhuma pessoa cadastrada.";
-        } else {
-            StringBuilder listaPessoas = new StringBuilder();
-            for (int i = 0; i < pessoas.size(); i++) {
-                listaPessoas.append(i + 1).append(". ").append(pessoas.get(i)).append("\n");
+    public void editarPessoa() {
+        listarPessoas();  // Exibe a lista de pessoas para o usuário selecionar
+        int index = Integer.parseInt(ScannerUtil.ler("Digite o ID da pessoa que deseja editar: ")) - 1;
+
+        if (index >= 0 && index < pessoas.size()) {
+            Pessoa pessoa = pessoas.get(index);
+            System.out.println("Editando a pessoa: " + pessoa.getNome());
+
+            // Permite a edição do nome
+            String novoNome = ScannerUtil.ler("Digite o novo nome (ou pressione Enter para manter o nome atual): ");
+            if (!novoNome.isEmpty()) {
+                pessoa.setNome(novoNome);
             }
-            return listaPessoas.toString();
+
+            // Permite a edição do documento
+            String novoDocumento = ScannerUtil.ler("Digite o novo documento (ou pressione Enter para manter o documento atual): ");
+            if (!novoDocumento.isEmpty()) {
+                pessoa.setDocumento(novoDocumento);
+            }
+
+            System.out.println("Pessoa editada com sucesso!");
+        } else {
+            System.out.println("Número inválido. Nenhuma pessoa foi editada.");
         }
     }
-
-    }
+}

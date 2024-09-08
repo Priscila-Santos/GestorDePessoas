@@ -1,28 +1,25 @@
 package Model;
 
-import Model.Contatos.ContatoPessoal;
-import Model.Contatos.ContatoProfissional;
+import Model.Contatos.Contato;
 import Model.ListaDeTarefas.Projeto;
 import Model.ListaDeTarefas.Tarefa;
-import Util.ScannerUtil;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static Controller.GerenciarContatos.contatos;
 
 public class Pessoa {
     private String nome;
     private String documento;
-    private List<Projeto> projetos = new ArrayList<>();
-    private List<Tarefa> tarefas = new ArrayList<>();
+    private List<Projeto> projetos = new ArrayList<>();  // Lista de projetos da pessoa
+    private List<Tarefa> tarefasIndependentes = new ArrayList<>();  // Lista de tarefas independentes
+    private List<Contato> contatos = new ArrayList<>();  // Lista de contatos da pessoa
 
     public Pessoa(String nome, String documento) {
         this.nome = nome;
         this.documento = documento;
     }
 
+    // Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -39,47 +36,58 @@ public class Pessoa {
         this.documento = documento;
     }
 
-    @Override
-    public String toString() {
-        return nome;
-    }
+    // Métodos de Projetos e Tarefas
 
-    // Gerenciar projetos
-    public List<Projeto> getProjetos() {
-        return projetos;
-    }
+    // Método para adicionar um projeto
     public void adicionarProjeto(Projeto projeto) {
         projetos.add(projeto);
     }
-    // Gerenciar tarefas
-    public List<Tarefa> getTarefas() {
-        return tarefas;
-    }
-    public void adicionarTarefas(Tarefa tarefa) {
-        tarefas.add(tarefa);
+
+    // Método para retornar a lista de projetos
+    public List<Projeto> getProjetos() {
+        return projetos;
     }
 
-    public String adicionarContatoPessoal() {
-        try {
-            String telefone = ScannerUtil.ler("Digite o telefone: ");
-            String endereco = ScannerUtil.ler("Digite o endereço: ");
-            String email = ScannerUtil.ler("Digite o email: ");
-            String aniversario = ScannerUtil.ler("Digite o aniversario: ");
-            String instagram = ScannerUtil.ler("Digite o instagram: ");
-            ContatoPessoal contatoPessoal = new ContatoPessoal(telefone, endereco, email, aniversario, instagram) {
-                @Override
-                public String toString() {
-                    return String.format("Nome: %s\nTelefone: %s\nEndereço: %s\nEmail: %s",
-                            ContatoPessoal.getTelefone(),
-                            ContatoPessoal.getEndereco(),
-                            ContatoPessoal.getEmail());
-                }
-            };
-            contatos.add(contatoPessoal);
-            return "Contato adicionado com sucesso!";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
+    // Método para adicionar uma tarefa independente
+    public void adicionarTarefaIndependente(Tarefa tarefa) {
+        tarefasIndependentes.add(tarefa);
+    }
+
+    // Método para retornar a lista de tarefas independentes
+    public List<Tarefa> getTarefasIndependentes() {
+        return tarefasIndependentes;
+    }
+
+    // Métodos de Contatos
+
+    // Método para adicionar um contato
+    public void adicionarContato(Contato contato) {
+        contatos.add(contato);
+    }
+
+    // Método para remover um contato por índice
+    public void removerContato(int index) {
+        if (index >= 0 && index < contatos.size()) {
+            contatos.remove(index);
+        } else {
+            System.out.println("Contato não encontrado.");
         }
     }
 
+    // Método para retornar a lista de contatos
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    // Método para exibir todos os contatos
+    public void listarContatos() {
+        if (contatos.isEmpty()) {
+            System.out.println("Nenhum contato cadastrado.");
+        } else {
+            System.out.println("Lista de Contatos:");
+            for (int i = 0; i < contatos.size(); i++) {
+                System.out.println((i + 1) + ". " + contatos.get(i).toString());
+            }
+        }
+    }
 }
