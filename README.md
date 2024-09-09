@@ -44,4 +44,36 @@ Para garantir que todos os membros da equipe pudessem colaborar de forma eficien
 6.	**Sync fork e git pull:** Para atualizar o repositório do github e para atualizar os códigos na máquina local de cada membro da equipe
 7.	**Revisão e Merge:** As pull requests eram revisadas por outros membros da equipe antes de serem mescladas na branch principal.
 
-## Estrutura da Aplicação (fazer depois que criarmos a interface)
+## Estrutura da Aplicação 
+```plaintext
+                    ============================================================
+                    |                      MENU PRINCIPAL                      |
+                    ============================================================
+                    | 1 - Gerenciar Pessoas                                    |
+                    | 2 - Gerenciar Projetos e Tarefas                         |
+                    | 3 - Gerenciar Contatos                                   |
+                    | 4 - Sair                                                 |
+                    ============================================================
+                    
+                    ============================================================
+                    |                GERENCIAR PROJETOS E TAREFAS              |
+                    ============================================================
+                    | 1 - Adicionar Projeto                                    |
+                    | 2 - Adicionar Tarefa                                     |
+                    | 3 - Exibir Projetos e Tarefas                            |
+                    | 4 - Alterar Status de Tarefa                             |
+                    | 5 - Voltar                                               |
+                    ============================================================
+
+                        +-----  +--------------------  +---------------  +
+                        | ID    | Nome                 | Documento       |
+                        +-----  +--------------------  +---------------  +
+                        | 1     | Lucas Carmo          | 123456789       |
+                        | 2     | Priscila Santos      | 987456321       |
+                        | 3     | Matheus Gomes        | 789456321       |
+                        | 4     | Débora Rocha         | 654789321       |
+                        | 5     | Lucas Silva          | 369852147       |
+                        +-----  +--------------------  +---------------  +
+
+```
+
