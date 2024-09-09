@@ -1,44 +1,38 @@
 package Model.ListaDeTarefas;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Projeto extends Item {
+public class Projeto {
+    private String nome;
+    private List<Tarefa> tarefas = new ArrayList<>();
 
-    private List<Tarefa> tarefas;
-    private int qtdDeTarefas;
-    private LocalDate dataFinal;
-
-
-    public Projeto(String nome){
-        super(nome);
-        this.tarefas = new ArrayList<>();
+    public Projeto(String nome) {
+        this.nome = nome;
     }
 
+    // Getter para o nome do projeto
+    public String getNome() {
+        return nome;
+    }
+
+    // Setter para o nome do projeto
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    // Método para obter as tarefas associadas ao projeto
     public List<Tarefa> getTarefas() {
         return tarefas;
     }
 
-    public void addTarefa(Tarefa tarefa) {
-        this.tarefas.add(tarefa);
-        tarefa.setProjeto(this);
-        this.setQtdDeTarefas(this.tarefas.size());
+    // Método para adicionar uma tarefa ao projeto
+    public void adicionarTarefa(Tarefa tarefa) {
+        tarefas.add(tarefa);  // Adiciona a tarefa à lista de tarefas
     }
 
-    public int getQtdDeTarefas() {
-        return qtdDeTarefas;
-    }
-
-    public void setQtdDeTarefas(int qtdDeTarefas) {
-        this.qtdDeTarefas = qtdDeTarefas;
-    }
-
-    public LocalDate getDataFinal() {
-        return dataFinal;
-    }
-
-    public void setDataFinal(LocalDate dataFinal) {
-        this.dataFinal = dataFinal;
+    @Override
+    public String toString() {
+        return "Projeto: " + nome;
     }
 }

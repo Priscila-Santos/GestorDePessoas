@@ -1,17 +1,10 @@
-import Controller.GerenciarContatos;
-import Model.Contatos.Contato;
 import View.Menu;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import exception.ProjetoNaoEncontrado;
 
 public class Main {
-    public static void main(String[] args) {
-        List<Contato> contatos = new ArrayList<>();
+    public static void main(String[] args) throws ProjetoNaoEncontrado {
 
         Menu menu = new Menu();
         menu.menuIniciar();
-
     }
 }

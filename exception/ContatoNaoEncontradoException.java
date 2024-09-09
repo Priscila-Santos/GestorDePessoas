@@ -6,4 +6,7 @@ public class ContatoNaoEncontradoException extends Exception {
         super("O contato não existe na agenda.");
     }
 
+    public ContatoNaoEncontradoException(String mensagem) {
+        super(mensagem);
+    }
 }

@@ -1,203 +1,100 @@
 package Controller;
 
 import Model.Contatos.Contato;
-import Model.Contatos.ContatoProfissional;
 import Model.Contatos.ContatoPessoal;
+import Model.Contatos.ContatoProfissional;
+import Model.Pessoa;
 import Util.ScannerUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static Model.Contatos.ContatoPessoal.*;
-import static Model.Contatos.ContatoProfissional.*;
+import exception.ContatoNaoEncontradoException;
+import exception.TelefoneInvalidoException;
 
 public class GerenciarContatos {
-    public static List<Contato> contatos;
-    private List<ContatoPessoal> contatosPessoais = new ArrayList<>();
-    private List<ContatoProfissional> contatosProfissionais = new ArrayList<>();
 
-    public GerenciarContatos() {
-        this.contatos = new ArrayList<>();
+    // Método para adicionar contato pessoal
+    public void adicionarContatosPessoais(Pessoa pessoa) throws TelefoneInvalidoException {
+        ContatoPessoal contatoPessoal = new ContatoPessoal();
+        String telefone = ScannerUtil.ler("Digite o telefone: ");
+        contatoPessoal.setTelefone(telefone);
+
+        String endereco = ScannerUtil.ler("Digite o endereço: ");
+        String email = ScannerUtil.ler("Digite o email: ");
+        String aniversario = ScannerUtil.ler("Digite o aniversário: ");
+        String instagram = ScannerUtil.ler("Digite o Instagram: ");
+
+        // Adiciona o contato pessoal à lista de contatos da pessoa
+        pessoa.adicionarContato(contatoPessoal);
+        System.out.println("Contato pessoal adicionado com sucesso!");
     }
 
-   /* private static Contato encontrarContato(String nome) {
-        for (Contato contato : contatos) {
-            if (contato.getNome().equalsIgnoreCase(nome)) {
-                return contato;
-            }
-        }
-        return null;
-    }*/
+    // Método para adicionar contato profissional
+    public void adicionarContatosProfissionais(Pessoa pessoa) throws TelefoneInvalidoException {
+        String telefone = ScannerUtil.ler("Digite o telefone: ");
+        String endereco = ScannerUtil.ler("Digite o endereço: ");
+        String email = ScannerUtil.ler("Digite o email: ");
+        String empresa = ScannerUtil.ler("Digite a empresa: ");
+        String cargo = ScannerUtil.ler("Digite o cargo: ");
 
-    public String listarContatosPessoais() {
-        if (contatosPessoais.isEmpty()) {
-            return "Nenhum contato cadastrado.";
+        // Criação do contato profissional com possível lançamento de exceção
+        ContatoProfissional contatoProfissional = new ContatoProfissional(telefone, endereco, email, empresa, cargo);
+        pessoa.adicionarContato(contatoProfissional);  // Adiciona o contato à lista de contatos da pessoa
+        System.out.println("Contato profissional adicionado com sucesso!");
+    }
+
+    // Exibir contatos da pessoa
+    public void exibirContatos(Pessoa pessoa) {
+        if (pessoa.getContatos().isEmpty()) {
+            System.out.println("Nenhum contato cadastrado.");
         } else {
-            StringBuilder lista = new StringBuilder("Lista de contatos:\n");
-            for (Contato contato : contatosPessoais) {
-                lista.append(contato).append("\n");
+            System.out.println("Lista de contatos:");
+            for (int i = 0; i < pessoa.getContatos().size(); i++) {
+                Contato contato = pessoa.getContatos().get(i);
+                System.out.println((i + 1) + ". " + contato.getTelefone() + " - " + contato.getEmail());
             }
-            return lista.toString();
         }
     }
 
-    public String listarContatosProfissionais() {
-        if (contatosProfissionais.isEmpty()) {
-            return "Nenhum contato cadastrado.";
-        } else {
-            StringBuilder lista = new StringBuilder("Lista de contatos:\n");
-            for (Contato contato : contatosProfissionais) {
-                lista.append(contato).append("\n");
-            }
-            return lista.toString();
-        }
-    }
-
-
-    public String editarContatosPessoais(){
-        return editarContatoPessoal();
-    }
-
-//    public String removerContatosPessoais(){
-//        return removerContatoPessoal();
-//    }
-
-    public String adicionarContatosProfissionais() {
-        return adicionarContatoProfissional();
-    }
-
-    public String editarContatosProfissionais(){
-        return editarContatoProfissional();
-    }
-
-
-
-   /* public static String adicionarContato() {
+    // Editar contato pessoal ou profissional
+    public void editarContato(Pessoa pessoa) throws TelefoneInvalidoException {
+        exibirContatos(pessoa);
         try {
-            String nome = ScannerUtil.ler("Digite o nome do contato que deseja adicionar: ");
-            String telefone = ScannerUtil.ler("Digite o telefone do contato: ");
-            String endereco = ScannerUtil.ler("Digite o endereço do contato: ");
-            String email = ScannerUtil.ler("Digite o email do contato: ");
-            Contato contato = new Contato(nome, telefone, endereco, email) {
-                @Override
-                public String toString() {
-                    return String.format("Nome: %s\nTelefone: %s\nEndereço: %s\nEmail: %s", getNome(), getTelefone(), getEndereco(), getEmail());
+            int index = Integer.parseInt(ScannerUtil.ler("Digite o número do contato para editar: ")) - 1;
+            if (index >= 0 && index < pessoa.getContatos().size()) {
+                Contato contato = pessoa.getContatos().get(index);
+                if (contato instanceof ContatoPessoal contatoPessoal) {
+                    contatoPessoal.setTelefone(ScannerUtil.ler("Digite o novo telefone: "));
+                    contatoPessoal.setEndereco(ScannerUtil.ler("Digite o novo endereço: "));
+                    contatoPessoal.setEmail(ScannerUtil.ler("Digite o novo email: "));
+                    contatoPessoal.setInstagram(ScannerUtil.ler("Digite o novo Instagram: "));
+                    System.out.println("Contato pessoal editado com sucesso!");
+                } else if (contato instanceof ContatoProfissional contatoProfissional) {
+                    contatoProfissional.setTelefone(ScannerUtil.ler("Digite o novo telefone: "));
+                    contatoProfissional.setEndereco(ScannerUtil.ler("Digite o novo endereço: "));
+                    contatoProfissional.setEmail(ScannerUtil.ler("Digite o novo email: "));
+                    contatoProfissional.setEmpresa(ScannerUtil.ler("Digite a nova empresa: "));
+                    contatoProfissional.setCargo(ScannerUtil.ler("Digite o novo cargo: "));
+                    System.out.println("Contato profissional editado com sucesso!");
                 }
-
-                @Override
-                public void imprimirContato() {
-
-                }
-
-
-                @Override
-                public void imprimirContato() {
-                    System.out.println(toString());
-                }
-
-                @Override
-                public String adicionarContato(List<Contato> contatos, ScannerUtil entrada) {
-                    return "";
-                }
-
-                @Override
-                public String editarContato(List<Contato> contatos, ScannerUtil entrada) {
-                    return "";
-                }
-
-                @Override
-                public String removerContato(List<Contato> contatos, ScannerUtil entrada) {
-                    return "";
-                }
-            };
-            contatos.add(contato);
-            return "Contato adicionado com sucesso!";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
+            } else {
+                System.out.println("Número inválido. Nenhum contato foi editado.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, insira um número válido.");
         }
     }
 
-
-
-    public static String editarContato(List<Contato> contatos, ScannerUtil entrada) {
+    // Remover contato
+    public void removerContato(Pessoa pessoa) throws ContatoNaoEncontradoException {
+        exibirContatos(pessoa);
         try {
-            String nome = ScannerUtil.ler("Digite o nome do contato que deseja editar: ");
-            Contato contato = encontrarContato(nome);
-            if (contato != null) {
-                String opcoesEdicao = """
-                       >>>> Editar <<<<
-                       1 - Nome
-                       2 - Telefone
-                       3 - Endereco
-                       4 - Email
-                       """;
-
-                ScannerUtil.ler(opcoesEdicao);
-                int opcao = Integer.parseInt(ScannerUtil.ler("Digite a opção que desejada para edição"));
-
-                switch (opcao) {
-                    case 1: String novoNome = ScannerUtil.ler("Digite o novo nome: ");
-                    contato.setNome(novoNome);
-                    break;
-                    case 2: String novoTelefone = ScannerUtil.ler("Digite o novo telefone: ");
-                    contato.setTelefone(novoTelefone);
-                    break;
-                    case 3: String novoEndereco = ScannerUtil.ler("Digite o novo endereco: ");
-                    contato.setEndereco(novoEndereco);
-                    break;
-                    case 4: String novoEmail = ScannerUtil.ler("Digite o email: ");
-                    contato.setEmail(novoEmail);
-                    break;
-                    default: return null;
-                }
-                return "Contato editado com sucesso!";
+            int index = Integer.parseInt(ScannerUtil.ler("Digite o ID do contato para remover: ")) - 1;
+            if (index >= 0 && index < pessoa.getContatos().size()) {
+                pessoa.removerContato(index);
+                System.out.println("Contato removido com sucesso!");
             } else {
-                return "Contato não encontrado.";
+                throw new ContatoNaoEncontradoException();
             }
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, insira um número válido.");
         }
     }
-
-
-    public static String removerContato() {
-        String nome = ScannerUtil.ler("Digite o nome do contato que deseja remover: ");
-        Contato contato = encontrarContato(nome);
-        if (contato != null) {
-            String confirmacao = ScannerUtil.ler("Tem certeza que deseja remover esse contato da sua agenda? S/N ");
-            if (confirmacao.equalsIgnoreCase("S")) {
-                contatos.remove(contato);
-                return "Contato removido com sucesso!";
-            } else {
-                return "Operação cancelada.";
-            }
-        } else {
-            return "Contato não encontrado.";
-        }
-    }
-
-    public static String detalharContato() {
-        String nome = ScannerUtil.ler("Digite o nome do contato: ");
-        Contato contato = encontrarContato(nome);
-        if (contato != null) {
-            return "Detalhes do contato:\n" + contato;
-        } else {
-            return "Contato não encontrado.";
-        }
-    }
-
-    public String listarContatos() {
-        if (contatos.isEmpty()) {
-            return "Nenhum contato cadastrado.";
-        } else {
-            StringBuilder lista = new StringBuilder("Lista de contatos:\n");
-            for (Contato contato : contatos) {
-                lista.append(contato).append("\n");
-            }
-            return lista.toString();
-        }
-    } */
-
-
-
 }
