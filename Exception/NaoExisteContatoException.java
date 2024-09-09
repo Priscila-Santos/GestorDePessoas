@@ -1,4 +1,4 @@
-package exception;
+package Exception;
 
 public class NaoExisteContatoException extends Exception {
 

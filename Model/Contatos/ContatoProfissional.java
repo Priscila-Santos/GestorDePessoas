@@ -1,6 +1,6 @@
 package Model.Contatos;
 
-import exception.TelefoneInvalidoException;
+import Exception.TelefoneInvalidoException;
 
 public class ContatoProfissional extends Contato {
     private String empresa;
@@ -22,7 +22,7 @@ public class ContatoProfissional extends Contato {
         return String.format("Contato Profissional: %s, %s, %s, %s, %s", getTelefone(), getEndereco(), getEmail(), empresa, cargo);
     }
 
-    // Getters e Setters
+
     public String getEmpresa() {
         return empresa;
     }

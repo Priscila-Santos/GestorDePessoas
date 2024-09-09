@@ -28,11 +28,11 @@ public class ScannerUtil {
         return sc.nextInt();
     }
 
-    //ler data - no formato padrão BR
+
     public static String lerData(String pergunta) {
         System.out.println(pergunta);
         String data;
-        // Expressão regular para o formato dd/MM/yyyy
+
         String regex = "\\d{2}/\\d{2}/\\d{4}";
         Pattern pattern = Pattern.compile(regex);
 
@@ -41,7 +41,7 @@ public class ScannerUtil {
             Matcher matcher = pattern.matcher(data);
 
             if (matcher.matches()) {
-                return data;  // Retorna a data se estiver no formato correto
+                return data;
             } else {
                 System.out.println("Formato de data inválido. Use dd/MM/yyyy.");
             }

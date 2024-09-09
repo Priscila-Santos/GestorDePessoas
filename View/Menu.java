@@ -5,9 +5,9 @@ import Controller.GerenciarPessoas;
 import Controller.GerenciarTarefas;
 import Model.Pessoa;
 import Util.ScannerUtil;
-import exception.ContatoNaoEncontradoException;
-import exception.ProjetoNaoEncontrado;
-import exception.TelefoneInvalidoException;
+import Exception.ContatoNaoEncontradoException;
+import Exception.ProjetoNaoEncontrado;
+import Exception.TelefoneInvalidoException;
 
 public class Menu {
     private GerenciarPessoas gerenciadorPessoas = new GerenciarPessoas();
@@ -22,10 +22,10 @@ public class Menu {
                     ============================================================
                     |                      MENU PRINCIPAL                      |
                     ============================================================
-                    | 1 - Gerenciar Pessoas                                      |
-                    | 2 - Gerenciar Projetos e Tarefas                           |
-                    | 3 - Gerenciar Contatos                                     |
-                    | 4 - Sair                                                  |
+                    | 1 - Gerenciar Pessoas                                    |
+                    | 2 - Gerenciar Projetos e Tarefas                         |
+                    | 3 - Gerenciar Contatos                                   |
+                    | 4 - Sair                                                 |
                     ============================================================
                     """);
 
@@ -34,7 +34,7 @@ public class Menu {
                 opcao = Integer.parseInt(ScannerUtil.ler("Escolha uma opção: "));
             } catch (NumberFormatException e) {
                 System.out.println("Entrada inválida. Por favor, insira um número.");
-                continue; // Volta ao início do loop para exibir o menu novamente
+                continue;
             }
 
             switch (opcao) {
@@ -88,13 +88,13 @@ public class Menu {
 
             System.out.println("""
                 ============================================================
-                |                GERENCIAR PROJETOS E TAREFAS               |
+                |                GERENCIAR PROJETOS E TAREFAS              |
                 ============================================================
-                | 1 - Adicionar Projeto                                      |
-                | 2 - Adicionar Tarefa                                       |
-                | 3 - Exibir Projetos e Tarefas                              |
-                | 4 - Alterar Status de Tarefa                               |
-                | 5 - Voltar                                                 |
+                | 1 - Adicionar Projeto                                    |
+                | 2 - Adicionar Tarefa                                     |
+                | 3 - Exibir Projetos e Tarefas                            |
+                | 4 - Alterar Status de Tarefa                             |
+                | 5 - Voltar                                               |
                 ============================================================
                 """);
             int opcao = Integer.parseInt(ScannerUtil.ler("Escolha uma opção: "));
@@ -102,7 +102,7 @@ public class Menu {
             switch (opcao) {
                 case 1 -> gerenciadorTarefas.adicionarProjeto(pessoa);
                 case 2 -> gerenciadorTarefas.adicionarTarefa(pessoa);
-                case 3 -> gerenciadorTarefas.exibirDuasTabelas(pessoa);  // Exibe projetos e tarefas juntos
+                case 3 -> gerenciadorTarefas.exibirDuasTabelas(pessoa);
                 case 4 -> gerenciadorTarefas.alterarStatusTarefa(pessoa);
                 case 5 -> continuar = false;
                 default -> System.out.println("Opção inválida.");
@@ -130,12 +130,12 @@ public class Menu {
                     ============================================================
                     |                  GERENCIAR CONTATOS                      |
                     ============================================================
-                    | 1 - Adicionar Contato Pessoal                              |
-                    | 2 - Adicionar Contato Profissional                         |
-                    | 3 - Exibir Contatos                                        |
-                    | 4 - Editar Contatos                                        |
-                    | 5 - Remover Contato                                        |
-                    | 6 - Voltar                                                 |
+                    | 1 - Adicionar Contato Pessoal                            |
+                    | 2 - Adicionar Contato Profissional                       |
+                    | 3 - Exibir Contatos                                      |
+                    | 4 - Editar Contatos                                      |
+                    | 5 - Remover Contato                                      |
+                    | 6 - Voltar                                               |
                     ============================================================
                     """);
             int opcao = -1;
@@ -172,11 +172,11 @@ public class Menu {
                     ============================================================
                     |                   GERENCIAR PESSOAS                      |
                     ============================================================
-                    | 1 - Adicionar Pessoa                                       |
-                    | 2 - Detalhar Pessoa                                        |
-                    | 3 - Editar Pessoa                                          |
-                    | 4 - Remover Pessoa                                         |
-                    | 5 - Voltar                                                 |
+                    | 1 - Adicionar Pessoa                                     |
+                    | 2 - Detalhar Pessoa                                      |
+                    | 3 - Editar Pessoa                                        |
+                    | 4 - Remover Pessoa                                       |
+                    | 5 - Voltar                                               |
                     ============================================================
                     """);
             int opcao = -1;

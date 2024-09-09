@@ -1,6 +1,6 @@
 package Model.Contatos;
 
-import exception.TelefoneInvalidoException;
+import Exception.TelefoneInvalidoException;
 
 public abstract class Contato {
     private String telefone;
@@ -10,21 +10,21 @@ public abstract class Contato {
     public Contato(){
     }
 
-    // Construtor
+
     public Contato(String telefone, String endereco, String email) throws TelefoneInvalidoException {
-        setTelefone(telefone);  // Usa o setter para validar o telefone
+        setTelefone(telefone);
         this.endereco = endereco;
         this.email = email;
     }
 
-    // Getters e Setters
+
     public String getTelefone() {
         return telefone;
     }
 
     public void setTelefone(String telefone) throws TelefoneInvalidoException {
-        if (telefone == null || !telefone.matches("\\d{4,5}-\\d{4}")) {
-            throw new TelefoneInvalidoException("Telefone inválido. Por favor, insira um número no formato: 1234-5678.");
+        if (telefone == null || !telefone.matches("^\\d{7}-\\d{4}$")) {
+            throw new TelefoneInvalidoException();
         }
         this.telefone = telefone;
     }
@@ -45,10 +45,10 @@ public abstract class Contato {
         this.email = email;
     }
 
-    // Método abstrato para exibir as informações do contato
+
     public abstract void imprimirContato();
 
-    // Sobrescreva o método `toString` nas subclasses (ContatoPessoal e ContatoProfissional)
+
     @Override
     public abstract String toString();
 }

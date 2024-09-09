@@ -1,6 +1,6 @@
 package Model.Contatos;
 
-import exception.TelefoneInvalidoException;
+import Exception.TelefoneInvalidoException;
 
 public class ContatoPessoal extends Contato {
     private String aniversario;
@@ -26,7 +26,7 @@ public class ContatoPessoal extends Contato {
         return String.format("Contato Pessoal: %s, %s, %s, %s, %s", getTelefone(), getEndereco(), getEmail(), aniversario, instagram);
     }
 
-    // Getters e Setters
+
     public String getAniversario() {
         return aniversario;
     }

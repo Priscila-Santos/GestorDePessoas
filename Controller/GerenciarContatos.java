@@ -5,28 +5,26 @@ import Model.Contatos.ContatoPessoal;
 import Model.Contatos.ContatoProfissional;
 import Model.Pessoa;
 import Util.ScannerUtil;
-import exception.ContatoNaoEncontradoException;
-import exception.TelefoneInvalidoException;
+import Exception.ContatoNaoEncontradoException;
+import Exception.TelefoneInvalidoException;
 
 public class GerenciarContatos {
 
-    // Método para adicionar contato pessoal
-    public void adicionarContatosPessoais(Pessoa pessoa) throws TelefoneInvalidoException {
-        ContatoPessoal contatoPessoal = new ContatoPessoal();
-        String telefone = ScannerUtil.ler("Digite o telefone: ");
-        contatoPessoal.setTelefone(telefone);
 
+    public void adicionarContatosPessoais(Pessoa pessoa) throws TelefoneInvalidoException {
+        String telefone = ScannerUtil.ler("Digite o telefone: ");
         String endereco = ScannerUtil.ler("Digite o endereço: ");
         String email = ScannerUtil.ler("Digite o email: ");
         String aniversario = ScannerUtil.ler("Digite o aniversário: ");
         String instagram = ScannerUtil.ler("Digite o Instagram: ");
 
-        // Adiciona o contato pessoal à lista de contatos da pessoa
+        ContatoPessoal contatoPessoal = new ContatoPessoal(telefone, endereco, email, aniversario, instagram);
+
         pessoa.adicionarContato(contatoPessoal);
         System.out.println("Contato pessoal adicionado com sucesso!");
     }
 
-    // Método para adicionar contato profissional
+
     public void adicionarContatosProfissionais(Pessoa pessoa) throws TelefoneInvalidoException {
         String telefone = ScannerUtil.ler("Digite o telefone: ");
         String endereco = ScannerUtil.ler("Digite o endereço: ");
@@ -34,13 +32,13 @@ public class GerenciarContatos {
         String empresa = ScannerUtil.ler("Digite a empresa: ");
         String cargo = ScannerUtil.ler("Digite o cargo: ");
 
-        // Criação do contato profissional com possível lançamento de exceção
+
         ContatoProfissional contatoProfissional = new ContatoProfissional(telefone, endereco, email, empresa, cargo);
-        pessoa.adicionarContato(contatoProfissional);  // Adiciona o contato à lista de contatos da pessoa
+        pessoa.adicionarContato(contatoProfissional);
         System.out.println("Contato profissional adicionado com sucesso!");
     }
 
-    // Exibir contatos da pessoa
+
     public void exibirContatos(Pessoa pessoa) {
         if (pessoa.getContatos().isEmpty()) {
             System.out.println("Nenhum contato cadastrado.");
@@ -53,7 +51,7 @@ public class GerenciarContatos {
         }
     }
 
-    // Editar contato pessoal ou profissional
+
     public void editarContato(Pessoa pessoa) throws TelefoneInvalidoException {
         exibirContatos(pessoa);
         try {
@@ -82,7 +80,7 @@ public class GerenciarContatos {
         }
     }
 
-    // Remover contato
+
     public void removerContato(Pessoa pessoa) throws ContatoNaoEncontradoException {
         exibirContatos(pessoa);
         try {
